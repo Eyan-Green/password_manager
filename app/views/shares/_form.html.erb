@@ -1,0 +1,15 @@
+<%= form_with model: user_password, url: password_shares_path(password) do |form| %>
+  <div class="my-5 flex flex-col">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, password.shareable_users, :id, :email %>
+  </div>
+
+  <div class="my-5 flex flex-col">
+    <%= form.label :role %>
+    <%= form.select :role, UserPassword::ROLES %>
+  </div>
+
+  <div class="flex justify-center">
+    <%= form.submit 'Share', class: 'bg-gray-500 text-center p-4 rounded hover:cursor-pointer w-full' %>
+  </div>
+<% end %>
