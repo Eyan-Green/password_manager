@@ -22,7 +22,7 @@ RSpec.describe PasswordsController, type: :request do
       get passwords_path
       expect(response).to have_http_status(:success)
       expect(response.body).to include('Password manager')
-      expect(response.body).to include('New Password')
+      expect(response.body).to include('Add Password')
       expect(response.body).to include(Password.last.url)
     end
   end
@@ -46,6 +46,7 @@ RSpec.describe PasswordsController, type: :request do
       expect(response.body).to include('Url can&#39;t be blank')
       expect(response.body).to include('Password can&#39;t be blank')
       expect(response.body).to include('New Password')
+      expect(response.body).to include('Password could not be created!')
     end
   end
   describe 'Edit and update password' do
@@ -68,6 +69,7 @@ RSpec.describe PasswordsController, type: :request do
       expect(response.body).to include('Url can&#39;t be blank')
       expect(response.body).to include('Password can&#39;t be blank')
       expect(response.body).to include('Edit Password')
+      expect(response.body).to include('Password could not be updated!')
     end
     it 'does not allow viewer users' do
       user_w_password.user_passwords.find_by(user: user_w_password).update(role: 'Viewer')

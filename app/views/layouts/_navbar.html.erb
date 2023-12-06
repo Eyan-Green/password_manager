@@ -1,0 +1,5 @@
+<nav class="h-16 bg-gray-500 flex justify-between items-center px-5 text-white">
+  <div><%= link_to 'Home', root_path if user_signed_in? %></div>
+  <div><%= link_to 'Add Password', new_password_path if user_signed_in? %></div>
+  <div><%= button_to('Sign Out', destroy_user_session_path, method: :delete) if user_signed_in? %></div>
+</nav>

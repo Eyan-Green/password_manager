@@ -9,14 +9,14 @@ feature 'User visits passwords path' do
 
   before(:each) { login_as user_w_password }
 
-  scenario 'They create a new password' do
+  scenario 'They create a create password' do
     visit passwords_path
 
-    expect(page).to have_link('New Password')
+    expect(page).to have_link('Add Password')
 
-    click_link 'New Password'
+    click_link 'Add Password'
 
-    expect(page).to have_content('New Password')
+    expect(page).to have_content('Add Password')
     expect(page).to have_field('password_url')
     expect(page).to have_field('password_username')
     expect(page).to have_field('password_password')

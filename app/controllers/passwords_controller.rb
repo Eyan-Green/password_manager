@@ -21,6 +21,7 @@ class PasswordsController < ApplicationController
     if @password.save
       redirect_to @password, notice: 'Password successfully created!'
     else
+      flash.now[:alert] = 'Password could not be created!'
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,6 +30,7 @@ class PasswordsController < ApplicationController
     if @password.update(password_params)
       redirect_to @password, notice: 'Password successfully updated!'
     else
+      flash.now[:alert] = 'Password could not be updated!'
       render 'edit', status: :unprocessable_entity
     end
   end

@@ -11,11 +11,11 @@ RSpec.describe 'Password System', type: :system do
     login_as user_instance
     visit passwords_path
 
-    expect(page).to have_link('New Password')
+    expect(page).to have_link('Add Password')
 
-    click_link 'New Password'
+    click_link 'Add Password'
 
-    expect(page).to have_content('New Password')
+    expect(page).to have_content('Add Password')
     expect(page).to have_field('password_url')
     expect(page).to have_field('password_username')
     expect(page).to have_field('password_password')
@@ -70,13 +70,14 @@ RSpec.describe 'Password System', type: :system do
     login_as user_instance
     visit passwords_path
 
-    expect(page).to have_link('New Password')
+    expect(page).to have_link('Add Password')
 
-    click_link 'New Password'
+    click_link 'Add Password'
     expect(page).to have_button('Create Password')
     click_button 'Create Password'
     expect(page).to have_content("Username can't be blank")
     expect(page).to have_content("Url can't be blank")
     expect(page).to have_content("Password can't be blank")
+    expect(page).to have_content('Password could not be created!')
   end
 end

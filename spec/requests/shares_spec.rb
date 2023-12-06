@@ -38,6 +38,7 @@ RSpec.describe SharesController, type: :request do
 
       post "/passwords/#{password.id}/shares", params: { user_password: { user_id: user_instance.id, role: nil } }
       expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.body).to include('Password could not be shared!')
     end
   end
 

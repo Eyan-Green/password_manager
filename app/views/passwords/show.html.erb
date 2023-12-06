@@ -1,6 +1,4 @@
-<%= link_to "← Back", root_path, class: "block mb-4 no-underline text-xs text-blue-500" %>
-
-<div class="mb-4 flex justify-between items-center">
+<div class="mb-4 flex flex-col md:flex-row justify-center md:justify-between items-center">
   <h1 class="mr-5">
     <%= @password.url %>
     <%= link_to @password.url, target: :_blank do %>
@@ -9,31 +7,31 @@
       </svg>
     <% end %>
   </h1>
-  <%= link_to "Edit", edit_password_path(@password) if current_user_password.editable? %>
+  <%= link_to "Edit", edit_password_path(@password), class: 'hover:underline' if current_user_password.editable? %>
 </div>
 
 <h3>Credentials</h3>
-<h4 class="my-2">Username / Email</h4>
-<div class="flex items-center gap-1">
+<h4 class="my-5 ">Username / Email</h4>
+<div class="flex items-center gap-1 w-6/12">
   <pre class="my-0 flex-grow bg-gray-500 px-5 py-2.5 rounded"><code><%= @password.username %></code></pre>
   <%= button_tag "Copy", class: "px-5 py-2.5 bg-gray-200 rounded", data: { controller: "clipboard", action: "click->clipboard#copy", clipboard_content_value: @password.username } %>
 </div>
-<h4 class="my-2">Password</h4>
-<div class="flex items-center gap-1">
+<h4 class="my-5 ">Password</h4>
+<div class="flex items-center gap-1 w-6/12">
   <pre class="my-0 flex-grow bg-gray-500 px-5 py-2.5 rounded"><code><%= @password.password %></code></pre>
   <%= button_tag "Copy", class: "px-5 py-2.5 bg-gray-200 rounded", data: { controller: "clipboard", action: "click->clipboard#copy", clipboard_content_value: @password.password } %>
 </div>
 
 <div class="flex flex-col justify-between items-center">
-  <h4 class="my-2">Shared with</h4>
+  <h4 class="my-5 ">Shared with</h4>
   <%= link_to 'Add a user', new_password_share_path(@password) if current_user_password.shareable? %>
 </div>
-<div class="flex flex-col gap-1 divide-y divide-gray-100">
+<div class="flex flex-col gap-1 divide-y divide-gray-100 mt-5">
   <% @password.user_passwords.includes(:user).each do |user_password| %>
     <div class="flex justify-between items-center">
       <div class="mx-5"><%= user_password.user.email %></div>
       <div class="mx-5"><%= user_password.role %></div>
-      <%= button_to 'Remove', password_share_path(@password, user_password.user), method: :delete, data: { turbo_confirm: 'Are you sure?' } if current_user_password.shareable? %>
+      <%= button_to 'Remove', password_share_path(@password, user_password.user), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'hover:underline' if current_user_password.shareable? %>
     </div>
   <% end %>
 </div>

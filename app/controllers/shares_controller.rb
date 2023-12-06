@@ -11,6 +11,7 @@ class SharesController < ApplicationController
     if @user_password.save
       redirect_to @password, notice: 'Password shared with user!'
     else
+      flash.now[:alert] = 'Password could not be shared!'
       render :new, status: :unprocessable_entity
     end
   end
