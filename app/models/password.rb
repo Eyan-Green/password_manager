@@ -3,7 +3,7 @@ class Password < ApplicationRecord
   has_many :users, through: :user_passwords
 
   encrypts :password
-  encrypts :username, deterministic: true
+  encrypts :username
 
   validates :username, presence: true
   validates :url, presence: true
