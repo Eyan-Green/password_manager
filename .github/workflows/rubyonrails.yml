@@ -16,6 +16,10 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      active_record_encryption:
+        primary_key: ${{ secrets.PRIMARY_KEY }}
+        deterministic_key: ${{ secrets.DETERMINISTIC_KEY }}
+        key_derivation_salt: ${{ secrets.DERIVATION_SALT }}      
     services:
       postgres:
         image: postgres:11-alpine
@@ -35,4 +39,11 @@ jobs:
           bundler-cache: true
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Run tests
+        run: |
+          bin/rails test:prepare
+          bin/rails db:test:prepare
+          bundle exec rspec spec/features
+          bundle exec rspec spec/models
+          bundle exec rspec spec/requests
     
