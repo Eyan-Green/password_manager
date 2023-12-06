@@ -16,9 +16,7 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ${{ secrets.DETERMINISTIC_KEY }}
-      ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: ${{ secrets.PRIMARY_KEY }}
-      ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: ${{ secrets.DERIVATION_SALT }}      
+      RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}   
     services:
       postgres:
         image: postgres:11-alpine
