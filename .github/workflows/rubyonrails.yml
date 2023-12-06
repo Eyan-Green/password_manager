@@ -14,9 +14,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      ENCRYPTION_KEY: ${{ secrets.ACTIVERECORD_ENCRYPTION_KEY }}
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ${{ secrets.DETERMINISTIC_KEY }}
     services:
       postgres:
         image: postgres:11-alpine
@@ -31,10 +31,9 @@ jobs:
         uses: actions/checkout@v3
       # Add or replace dependency steps here
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run tests
@@ -43,4 +42,5 @@ jobs:
           bin/rails db:test:prepare
           bundle exec rspec spec/features
           bundle exec rspec spec/models
-          bundle exec rspec spec/requests        
+          bundle exec rspec spec/requests
+    
