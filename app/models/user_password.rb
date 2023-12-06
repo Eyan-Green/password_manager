@@ -22,15 +22,9 @@ class UserPassword < ApplicationRecord
 
   private
 
-  def owner?
-    role == 'Owner'
-  end
-
-  def viewer?
-    role == 'Viewer'
-  end
-
-  def editor?
-    role == 'Editor'
+  ROLES.each do |type|
+    define_method("#{type.downcase}?") do
+      role == type
+    end
   end
 end
